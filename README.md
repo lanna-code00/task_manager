@@ -9,8 +9,14 @@
 
 <!-- Project Details -->
 Pattern Used: Service Pattern
+
 Made use of API resource
+
+
 Create Form Request for validation
+
+
 Made use of laravel resource for returning data
+
 
 Postman collection: https://grey-station-604424.postman.co/workspace/Task-Manager-API~32040a47-8b8b-46e6-a028-a92bce230228/collection/15167821-78481277-e7a0-4a75-a217-2a6a7a3d023b?action=share&creator=15167821&active-environment=15167821-ea054077-4f64-4a81-8288-5fda63d00d10
