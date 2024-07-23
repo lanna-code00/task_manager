@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\JsonResponse;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -18,10 +19,11 @@ return Application::configure(basePath: dirname(__DIR__))
             Route::middleware('api')
             ->prefix('api/v1/')
             ->group(base_path('routes/v1/auth.php'));
+            
         },
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->append(JsonResponse::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

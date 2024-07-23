@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TaskReource extends JsonResource
+class TaskResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,6 +14,12 @@ class TaskReource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'task_unique_id' => $this->task_unique_id,
+            'title' => $this->title,
+            'description' => $this->description,
+            'status' => $this->status,
+            'meta' => $this->meta
+        ];
     }
 }

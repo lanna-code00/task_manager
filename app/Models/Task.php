@@ -11,6 +11,17 @@ class Task extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'description',
+        'status'
+    ];
+
+    protected $hidden = [
+        'user_id',
+        'id',
+    ];
+
     protected static function boot()
     {
         parent::boot();
@@ -27,6 +38,11 @@ class Task extends Model
         } while (self::where('task_unique_id', $uniqueId)->exists());
 
         return $uniqueId;
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'task_unique_id';
     }
     public function user(): BelongsTo
     {
