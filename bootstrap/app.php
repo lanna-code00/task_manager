@@ -1,5 +1,6 @@
 <?php
 
+use App\Exceptions\UnauthorizedException;
 use App\Http\Middleware\JsonResponse;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -26,5 +27,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->append(JsonResponse::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+
+        $exceptions->render(function (UnauthorizedException $e, $request) {
+            return $e->render($request);
+        });
     })->create();

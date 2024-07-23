@@ -22,7 +22,6 @@ class TaskFactory extends Factory
             'title' => $this->faker->sentence(3),
             'description' => HtmlSanitize::sanitizeHtml($this->faker->randomHtml()),
             'status' => $this->faker->randomElement([TaskStatus::COMPLETED->value, TaskStatus::IN_PROGRESS->value, TaskStatus::PENDING->value]),
-            'user_id' => \App\Models\User::factory(), // This creates a new User
         ];
     }
 }

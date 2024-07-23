@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -14,8 +15,11 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::factory()
-            ->count(3) 
-            ->hasTasks(4) 
-            ->create();
+        ->count(10)
+        ->create()
+        ->each(function($user) {
+            $user->tasks()->createMany(Task::factory()->count(5)->make()->toArray());
+        });
+    
     }
 }
