@@ -45,11 +45,23 @@ class UserFactory extends Factory
 
     public function configure()
     {
+
         return $this->afterCreating(function (User $user) {
-            // Create tasks for this user
-            $user->tasks()->saveMany(
-                Task::factory()->count(4)->make()
-            );
+
+            $tasks = Task::factory()->count(4)->create([
+            
+                'user_id' => $user->id,
+            
+            ]);
+
+            // Assign tasks to other users
+            $tasks->each(function (Task $task) use ($user) {
+
+                $assignedUsers = User::inRandomOrder()->limit(3)->get(); // fetch random users to assign tasks to
+                
+                $task->users()->attach($assignedUsers->pluck('id')->toArray());
+            
+            });
         });
     }
 }

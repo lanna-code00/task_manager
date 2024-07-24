@@ -21,9 +21,13 @@ class TaskPolicy
      */
     public function view(User $user, Task $task): Response
     {
-        return $user->id === $task->user_id
+
+        return $this->isOwnerOrAssigned($user, $task)
+
             ? Response::allow()
+
             : throw new UnauthorizedException();
+
     }
 
     /**
@@ -31,9 +35,13 @@ class TaskPolicy
      */
     public function update(User $user, Task $task): Response
     {
-        return $user->id === $task->user_id
+
+        return $this->isOwnerOrAssigned($user, $task)
+
             ? Response::allow()
+
             : throw new UnauthorizedException();
+
     }
 
     /**
@@ -41,8 +49,24 @@ class TaskPolicy
      */
     public function delete(User $user, Task $task): Response
     {
+
         return $user->id === $task->user_id
+
             ? Response::allow()
+
             : throw new UnauthorizedException();
+
+    }
+
+    protected function isOwnerOrAssigned(User $user, Task $task): bool
+    {
+        if (!$task->relationLoaded('users')) {
+
+            $task->load('users');
+
+        }
+        
+        return $user->id === $task->user_id || $task->users->contains($user?->id);
+
     }
 }

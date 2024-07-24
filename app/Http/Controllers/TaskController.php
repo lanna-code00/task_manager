@@ -20,29 +20,18 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $_tasks = auth()->user()->tasks()->latest()->paginate(12);
-
-        return response()->json([
-            
-            'status' => 'success',
-
-            'data' => TaskResource::collection($_tasks)
-
-        ], 200);
+        return $this->taskService->index();
     }
-
-
     public function fetchAllTasks()
     {
-        $_tasks = $this->taskService->fetchAllTasks();
 
-        return response()->json([
-            
-            'status' => 'success',
+        return $this->taskService->fetchAllTasks();
 
-            'data' => TaskResource::collection($_tasks)
+    }
 
-        ], 200);
+    public function fetchMyAssignedTasks()
+    {
+        return $this->taskService->fetchMyAssignedTasks();
     }
     /**
      * Store a newly created resource in storage.
@@ -59,18 +48,12 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
+
+        $task->load('users'); 
+
         \Gate::authorize('view', $task);
 
-        // $_task = $this->taskService->show($task);
-
-        return response()->json([
-            
-            'status' => 'success',
-
-            'data' => TaskResource::make($task)
-
-        ], 200);
-
+        return $this->taskService->show($task);
     }
 
     /**

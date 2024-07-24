@@ -16,10 +16,6 @@ class UserSeeder extends Seeder
     {
         User::factory()
         ->count(10)
-        ->create()
-        ->each(function ($user) {
-            Task::factory()->count(5)->forUser($user)->create();
-        });
-    
+        ->create();
     }
 }
