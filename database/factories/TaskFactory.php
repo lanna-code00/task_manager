@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\TaskStatus;
+use App\Models\User;
 use App\Utils\HtmlSanitize;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -23,5 +24,12 @@ class TaskFactory extends Factory
             'description' => HtmlSanitize::sanitizeHtml($this->faker->randomHtml()),
             'status' => $this->faker->randomElement([TaskStatus::COMPLETED->value, TaskStatus::IN_PROGRESS->value, TaskStatus::PENDING->value]),
         ];
+    }
+
+    public function forUser(User $user): Factory
+    {
+        return $this->state([
+            'user_id' => $user->id,
+        ]);
     }
 }

@@ -5,16 +5,16 @@ namespace Tests\Feature;
 use App\Enums\TaskStatus;
 use App\Models\Task;
 use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class TaskServiceTest extends TestCase
+class TaskTest extends TestCase
 {
     /**
      * A basic feature test example.
      */
-    use DatabaseTransactions, WithFaker;
+    use RefreshDatabase, WithFaker;
 
     protected User $user;
 

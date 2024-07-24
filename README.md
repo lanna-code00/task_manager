@@ -20,7 +20,7 @@
 4. Made use of laravel resource for returning data
 
 
-5. Test file for Task is in the Test/Feature folder {TaskServiceTest.php}
+5. Test files for Task and Authentication is in the tests/Feature(AuthTest and TaskTest) and tests/Unit (AuthTest and TaskTest) folder
 
 
 6. Policy and Gate was used to prevent unauthorized request (like updating and deleting a task you didn't create)
@@ -34,6 +34,10 @@
    Before this, if you want to clone this project clone it directly in your laragon/www folder, that is if you are using laragon. The steps are here https://medium.com/@chimaeze223/creating-your-own-local-domain-using-laragon-laravel-d08d692e8c2c  So, no need of you running php artisan serve.
    
    PS: I'm the author, kindly check it out 🙏.
+
+
+   Also, for test cases create another db for it, example task_manager_test (in my case) this will be in your .env.testing file. This will ensure the tests run on a separate test database, to avoid any issues with the actual dataa.
+
    
    i => git clone https://github.com/lanna-code00/task_manager.git
 
@@ -44,19 +48,19 @@
    iii => Run composer install (this is to install dependencies)
 
 
-   iv => Create a copy of the .env file, run cp .env.example .env or copy .env.example .env
+   iv => Create a copy of the .env file, run cp .env.example .env or copy .env.example .env, also run  cp .env.example .env.testing to create a test env for testing purposes
 
 
-   v => generate your application key; php artisan key:generate
+   v => generate your application key; php artisan key:generate. For test env run "php artisan key:generate --env=testing"
 
 
-   vi => Make sure you connect your databse and then run your migrations: php artisan migrate or run it together with the seed "php artisan migrate --seed"
+   vi => Make sure you connect your databse and then run your migrations: php artisan migrate or run it together with the seed "php artisan migrate --seed". For Testing, you can run "php artisan migrate --env=testing --seed"
 
 
-   vii => Serve your project using php artisan serve or use laragon (like I highlighted before)
+   vii => Serve your project using php artisan serve or use laragon (like I highlighted at the top)
 
 
-8. Used phpUnit for test. Please run "php artisan test" for see if the tests passed
+8. Used phpUnit for test. Please run "php artisan test" to see if the tests passed
 
 
 9. Used Enum for the task Statues
