@@ -33,7 +33,7 @@
 
    Before this, if you want to clone this project clone it directly in your laragon/www folder, that is if you are using laragon. The steps are here https://medium.com/@chimaeze223/creating-your-own-local-domain-using-laragon-laravel-d08d692e8c2c  So, no need of you running php artisan serve.
    
-   PS: I'm the author, kindly check it out.
+   PS: I'm the author, kindly check it out 🙏.
    
    i => git clone https://github.com/lanna-code00/task_manager.git
 
@@ -51,12 +51,18 @@
 
 
    vi => Make sure you connect your databse and then run your migrations: php artisan migrate or run it together with the seed "php artisan migrate --seed"
-   
+
 
    vii => Serve your project using php artisan serve or use laragon (like I highlighted before)
 
 
 8. Used phpUnit for test. Please run "php artisan test" for see if the tests passed
+
+
+9. Used Enum for the task Statues
+
+
+10. The routes are in the v1 folder, I created this folder and registered it in the bootstrap/app.php file, since laravel 11 no longer make use of RouteServiceProvider 🤦
 
 
 Additional Feature: I created a class(HtmlSanitize in the Utils folder) that will handle HTML tags incase if the frontend will later need it
