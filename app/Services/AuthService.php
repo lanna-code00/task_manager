@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services;
+use App\Http\Resources\TaskResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -76,9 +77,45 @@ class AuthService {
             ]);
 
         } catch (\Throwable $th) {
+
             return response()->json([
+
                 'status' => 'error', 'message' => 'An unexpected error occurred.'
+            
             ], 500);
+
+        }
+    }
+
+    function userProfile()
+    {
+        try {
+            $user = auth()->user();
+        
+            $data = [
+                'user' => $user, 
+
+                'tasks_created' => [
+                    'count' => $user->tasks()->count(),
+                    'tasks' => TaskResource::collection($user->tasks()->latest()->paginate(12)) 
+                ],
+
+                'tasks_assigned' => [
+                    'count' => $user->assignedTasks()->count(),
+                    'tasks' => TaskResource::collection($user->assignedTasks()->latest()->paginate(12)) 
+                ]
+            ];
+    
+            return response()->json([
+
+                'status' => 'success',
+
+                'data' => $data
+
+            ], 200);
+
+        } catch (\Throwable $th) {
+            throw $th;
         }
     }
 

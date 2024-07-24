@@ -22,6 +22,7 @@ class Task extends Model
         'priority',
         'tags',
         'attachments',
+        'user_id',
         'completion_date',
         'status',
         'meta'

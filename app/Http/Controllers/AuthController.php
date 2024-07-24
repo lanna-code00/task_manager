@@ -24,4 +24,9 @@ class AuthController extends Controller
         $_login = $this->authService->signInUser($request->all());
         return $_login;
     }
+
+    public function userProfile()
+    {
+        return $this->authService->userProfile();
+    }
 }

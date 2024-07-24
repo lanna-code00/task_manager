@@ -52,7 +52,7 @@ Base_url => http://localhost/api/v1. Replace localhost with your local server ur
    iii => Run composer install (this is to install dependencies)
 
 
-   iv => Create a copy of the .env file, run cp .env.example .env or copy .env.example .env, also run  cp .env.example .env.testing to create a test env for testing purposes
+   iv => Create a copy of the .env file, run cp .env.example .env or copy .env.example .env, also run  cp .env.example .env.testing (run this if you dont have the file) to create a test env for testing purposes
 
 
    v => generate your application key; php artisan key:generate. For test env run "php artisan key:generate --env=testing"

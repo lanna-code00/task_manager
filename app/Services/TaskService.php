@@ -108,24 +108,19 @@ class TaskService {
                );
     
                    // Check if there's an assigned user
-               if (isset($data['assigned_to']) && is_array($data['assigned_to'])) {
-                   
-                   $user = User::where('unique_id', $data['assigned_to'])->first();
-                   
-                   $data['assigned_to'] = $user?->id;
-   
-               }
-   
-               $_task = $this->authUser()->tasks()->create($data);
-   
-               // Assign the task if there's an assigned user
-               if (isset($data['assigned_to']) && is_array($data['assigned_to'])) {
-                   
-                   $userIds = User::whereIn('unique_id', $data['assigned_to'])->pluck('id');
-                   
-                   $_task->users()->attach($userIds);
+                   if (isset($data['assigned_to']) && is_array($data['assigned_to'])) {
+                    
+                    $userIds = User::whereIn('unique_id', $data['assigned_to'])->pluck('id')->unique()->toArray();
                
-               }
+                }
+    
+                $_task = $this->authUser()->tasks()->create($data);
+    
+                if (isset($data['assigned_to']) && is_array($data['assigned_to'])) {
+                   
+                    $_task->users()->sync($userIds);
+
+                }
     
                 return response()->json([
    

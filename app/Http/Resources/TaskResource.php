@@ -15,8 +15,8 @@ class TaskResource extends JsonResource
     public function toArray(Request $request): array
     {
 
-        $routeName = $request->route()->getName();
-
+        $routeName = $request->route()?->getName();
+        
         $fetch_all_tasks_route = $routeName === 'fetch-all-tasks';
 
         return [

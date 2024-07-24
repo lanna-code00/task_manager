@@ -7,6 +7,7 @@ use App\Enums\TaskStatus;
 use App\Models\Task;
 use App\Models\User;
 use App\Utils\HtmlSanitize;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -25,56 +26,35 @@ class TaskFactory extends Factory
         $priority = $this->faker->randomElement([PriorityStatus::LOW->value, PriorityStatus::MEDIUM->value, PriorityStatus::URGENT->value, PriorityStatus::HIGH->value]);
 
         return [
-
             'title' => $this->faker->sentence(3), 
-
-            'description' => HtmlSanitize::sanitizeHtml($this->faker->randomHtml(100)), 
-
+            'description' => HtmlSanitize::sanitizeHtml(Str::words($this->faker->text, 100)), 
             'status' => $status, 
-
             'start_date' => $this->faker->dateTimeBetween('-1 month', 'now'), 
-
             'due_date' => $this->faker->dateTimeBetween('now', '+1 month'), 
-
             'priority' => $priority, 
-
             'tags' => $this->faker->words(3, true),
-
             'attachments' => [
-
                 'file1.jpg',
-
                 'file2.pdf',
             ], 
-
             'completion_date' => $this->faker->optional()->dateTimeBetween('start_date', 'now'), 
-
-            'meta' => json_encode(['extra_info' => 'Some additional informartion']), 
-
+            'meta' => ['extra_info' => 'Some additional information'],
+            'user_id' => User::factory(),
         ];
     }
 
     public function forUser(User $user): Factory
     {
-
         return $this->state([
-
             'user_id' => $user->id,
-
         ]);
-
     }
-
 
     public function assignToRandomUsers(int $count = 3): Factory
     {
-
         return $this->afterCreating(function (Task $task) use ($count) {
-            
             $users = User::inRandomOrder()->limit($count)->get();
-            
             $task->users()->attach($users->pluck('id')->toArray());
-            
         });
     }
 }
