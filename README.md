@@ -13,26 +13,27 @@ Base_url => http://localhost/api/v1. Replace localhost with your local server ur
 
 1. Pattern Used: Service Pattern
 
+2. Authentication Method: Sanctum
 
-2. Made use of API resource
-
-
-3. Create Form Request for validation
+3. Made use of API resource
 
 
-4. Made use of laravel resource for returning data
+4. Create Form Request for validation
 
 
-5. Test files for Task and Authentication is in the tests/Feature(AuthTest and TaskTest) and tests/Unit (AuthTest and TaskTest) folder
+5. Made use of laravel resource for returning data
 
 
-6. Policy and Gate was used to prevent unauthorized request (like updating and deleting a task you didn't create)
+6. Test files for Task and Authentication is in the tests/Feature(AuthTest and TaskTest) and tests/Unit (AuthTest and TaskTest) folder
 
 
-7. Created an  exception app\Exceptions\UnauthorizedException.php to handle the unauthorized request for tasks
+7. Policy and Gate was used to prevent unauthorized request (like updating and deleting a task you didn't create)
 
 
-8. If you clone this project, follow the steps below:
+8. Created an  exception app\Exceptions\UnauthorizedException.php to handle the unauthorized request for tasks
+
+
+9. If you clone this project, follow the steps below:
 
    Before this, if you want to clone this project clone it directly in your laragon/www folder, that is if you are using laragon. The steps are here https://medium.com/@chimaeze223/creating-your-own-local-domain-using-laragon-laravel-d08d692e8c2c  So, no need of you running php artisan serve.
    
