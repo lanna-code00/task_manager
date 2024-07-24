@@ -23,7 +23,7 @@ class TaskPolicy
     {
         return $user->id === $task->user_id
             ? Response::allow()
-            : Response::denyAsNotFound();
+            : throw new UnauthorizedException();
     }
 
     /**
@@ -43,6 +43,6 @@ class TaskPolicy
     {
         return $user->id === $task->user_id
             ? Response::allow()
-            : Response::denyAsNotFound();
+            : throw new UnauthorizedException();
     }
 }

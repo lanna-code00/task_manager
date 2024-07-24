@@ -20,17 +20,30 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = auth()->user()->tasks()->latest()->paginate(12);
+        $_tasks = auth()->user()->tasks()->latest()->paginate(12);
 
         return response()->json([
             
             'status' => 'success',
 
-            'data' => TaskResource::collection($tasks)
+            'data' => TaskResource::collection($_tasks)
 
         ], 200);
     }
 
+
+    public function fetchAllTasks()
+    {
+        $_tasks = $this->taskService->fetchAllTasks();
+
+        return response()->json([
+            
+            'status' => 'success',
+
+            'data' => TaskResource::collection($_tasks)
+
+        ], 200);
+    }
     /**
      * Store a newly created resource in storage.
      */

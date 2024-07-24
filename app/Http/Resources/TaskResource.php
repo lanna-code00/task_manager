@@ -14,12 +14,15 @@ class TaskResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $routeName = $request->route()->getName();
+        $fetch_all_tasks_route = $routeName === 'fetch-all-tasks';
         return [
             'task_unique_id' => $this->task_unique_id,
             'title' => $this->title,
             'description' => $this->description,
             'status' => $this->status,
-            'meta' => $this->meta
+            'meta' => $this->meta,
+            'user' => $this->when($fetch_all_tasks_route, $this->user)
         ];
     }
 }

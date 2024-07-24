@@ -26,7 +26,7 @@
 6. Policy and Gate was used to prevent unauthorized request (like updating and deleting a task you didn't create)
 
 
-7. Created an  exception app\Exceptions\UnauthorizedException.php to handle the unauthorized request of updating a task
+7. Created an  exception app\Exceptions\UnauthorizedException.php to handle the unauthorized request for tasks
 
 
 8. If you clone this project, follow the steps below:
@@ -67,7 +67,11 @@
 
 Additional Feature: I created a class(HtmlSanitize in the Utils folder) that will handle HTML tags incase if the frontend will later need it
 
-Thanks!
-
 
 Postman collection: https://grey-station-604424.postman.co/workspace/Task-Manager-API~32040a47-8b8b-46e6-a028-a92bce230228/collection/15167821-78481277-e7a0-4a75-a217-2a6a7a3d023b?action=share&creator=15167821&active-environment=15167821-ea054077-4f64-4a81-8288-5fda63d00d10
+
+
+N:B This API "{{base_url}}/fetch-all-tasks", fetches all the tasks in the database with their user/author. I added it incase it may be needed. It's in postman as well
+
+
+Thanks!

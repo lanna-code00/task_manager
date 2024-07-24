@@ -17,6 +17,22 @@ class TaskService {
       return auth()->user();
     }
 
+    function fetchAllTasks()
+    {
+        try {
+
+            return $this->task->with('user')->latest()->get();
+
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json([
+
+                'status' => 'error', 'message' => 'An unexpected error occurred.'
+
+            ], 500);
+        }
+    }
+
     function createTask($data)
     {
         try {
