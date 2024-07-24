@@ -8,6 +8,9 @@
 </p>
 
 <!-- Project Details -->
+Base_url => http://localhost/api/v1. Replace localhost with your local server url.
+
+
 1. Pattern Used: Service Pattern
 
 
