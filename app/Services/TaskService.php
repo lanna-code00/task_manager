@@ -25,13 +25,13 @@ class TaskService {
 
     public function index()
     {
-        $_tasks = auth()->user()->tasks()->latest()->get();
+        $_tasks = auth()->user()->tasks()->latest();
 
         return response()->json([
             
             'status' => 'success',
 
-            'data' => TaskResource::collection($_tasks)
+            'data' => TaskResource::collection($_tasks->paginate(12))->response()->getData(true)
 
         ], 200);
     }
@@ -46,12 +46,12 @@ class TaskService {
     
                 'status' => 'success',
     
-                'data' => TaskResource::collection($_tasks)
+                'data' => TaskResource::collection($_tasks)->response()->getData(true)
             ]);
-            
+
         } catch (\Throwable $th) {
-            //throw $th;
-            Log::error('Fetching assigned tasks failed', ['error' => $th->getMessage()]);
+            throw $th;
+            // Log::error('Fetching assigned tasks failed', ['error' => $th->getMessage()]);
 
         }
 
@@ -76,18 +76,18 @@ class TaskService {
     {
         try {
 
-            $_tasks = $this->task->with('user:unique_id,name,email')->latest()->paginate(12);
+            $_tasks = $this->task->with('user')->latest()->paginate(12);
 
             return response()->json([
             
                 'status' => 'success',
     
-                'data' => TaskResource::collection($_tasks)
+                'data' => TaskResource::collection($_tasks)->response()->getData(true)
     
             ], 200);
 
         } catch (\Throwable $th) {
-            //throw $th;
+            // throw $th;
             return response()->json([
 
                 'status' => 'error', 'message' => 'An unexpected error occurred.'

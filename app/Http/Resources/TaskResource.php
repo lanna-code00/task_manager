@@ -48,12 +48,14 @@ class TaskResource extends JsonResource
             'user' => $this->when($fetch_all_tasks_route, $this->user),
 
             'assigned_users' => $this->users->map(function ($user) {
+
                 return [
                     'name' => $user->name,
                     'unique_id' => $user->unique_id,
                     'email' => $user->email,
                     'created_at' => $user->created_at,
                 ];
+                
             }),
 
         ];

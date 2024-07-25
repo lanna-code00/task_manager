@@ -73,15 +73,18 @@ class TaskTest extends TestCase
     
         $response->assertStatus(200)
                  ->assertJsonStructure([
-                     'status',
-                     'data' => [
-                         '*' => [
-                             'task_unique_id',
-                             'title',
-                             'description',
-                             'status',
-                         ]
-                     ]
+                    'status',
+                    'data' => [
+                        'data' => [
+                            '*' => [
+                                'task_unique_id',
+                                'title',
+                                'description',
+                                'status',
+                                'due_date',
+                            ]
+                        ]
+                    ]
                  ])
                  ->assertJsonFragment([
                      'task_unique_id' => $task1->task_unique_id,
