@@ -22,6 +22,7 @@ class TaskController extends Controller
     {
         return $this->taskService->index();
     }
+    
     public function fetchAllTasks()
     {
 
