@@ -56,8 +56,6 @@ class TaskService {
         }
 
     }
-
-
     protected function deleteOldFiles ($task, $newAttachments = [])
     {
         if ($task->attachments) {
