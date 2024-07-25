@@ -6,6 +6,7 @@ use App\Http\Requests\TaskFormRequest;
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
 use App\Services\TaskService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -18,7 +19,7 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
         return $this->taskService->index();
     }
@@ -30,14 +31,14 @@ class TaskController extends Controller
 
     }
 
-    public function fetchMyAssignedTasks()
+    public function fetchMyAssignedTasks(): JsonResponse
     {
         return $this->taskService->fetchMyAssignedTasks();
     }
     /**
      * Store a newly created resource in storage.
      */
-    public function store(TaskFormRequest $request)
+    public function store(TaskFormRequest $request): JsonResponse
     {
         $_task = $this->taskService->createTask($request->validated());
 
@@ -47,7 +48,7 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Task $task)
+    public function show(Task $task): JsonResponse
     {
         \Gate::authorize('view', $task);
 
@@ -57,7 +58,7 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(TaskFormRequest $request, Task $task)
+    public function update(TaskFormRequest $request, Task $task): JsonResponse
     {
         \Gate::authorize('update', $task);
 
@@ -67,7 +68,7 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $task)
+    public function destroy(Task $task): JsonResponse
     {
         \Gate::authorize('delete', $task);
 
