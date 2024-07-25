@@ -48,9 +48,6 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-
-        $task->load('users'); 
-
         \Gate::authorize('view', $task);
 
         return $this->taskService->show($task);
