@@ -6,6 +6,7 @@ use App\Models\Task;
 use App\Models\User;
 use App\Utils\HtmlSanitize;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class TaskService {
 
@@ -15,7 +16,7 @@ class TaskService {
     }
 
 
-    private function authUser()
+    protected function authUser()
     {
 
       return auth()->user();
@@ -24,7 +25,7 @@ class TaskService {
 
     public function index()
     {
-        $_tasks = auth()->user()->tasks()->latest()->paginate(12);
+        $_tasks = auth()->user()->tasks()->latest()->get();
 
         return response()->json([
             
@@ -38,20 +39,26 @@ class TaskService {
 
     public function fetchMyAssignedTasks()
     {
+        try {
+            $_tasks = $this->authUser()->assignedTasks()->latest()->paginate(12);
+    
+            return response()->json([
+    
+                'status' => 'success',
+    
+                'data' => TaskResource::collection($_tasks)
+            ]);
+            
+        } catch (\Throwable $th) {
+            //throw $th;
+            Log::error('Fetching assigned tasks failed', ['error' => $th->getMessage()]);
 
-        $_tasks = auth()->user()->assignedTasks;
-
-        return response()->json([
-
-            'status' => 'success',
-
-            'data' => TaskResource::collection($_tasks)
-        ]);
+        }
 
     }
 
 
-    private function deleteOldFiles ($task, $newAttachments = [])
+    protected function deleteOldFiles ($task, $newAttachments = [])
     {
         if ($task->attachments) {
 
@@ -113,8 +120,10 @@ class TaskService {
                     $userIds = User::whereIn('unique_id', $data['assigned_to'])->pluck('id')->unique()->toArray();
                
                 }
+
+                Log::info("user", ["message" => auth()->user()]);
     
-                $_task = $this->authUser()->tasks()->create($data);
+                $_task = auth()->user()->tasks()->create($data);
     
                 if (isset($data['assigned_to']) && is_array($data['assigned_to'])) {
                    
@@ -136,6 +145,8 @@ class TaskService {
             return $_create_task;
 
         } catch (\Throwable $th) {
+
+            Log::error('Task creation failed', ['error' => $th->getMessage()]);
 
              return response()->json([
 
